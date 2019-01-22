@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.messaging.SubscribableChannel;
@@ -31,10 +32,11 @@ public class CloudStreamRabbitConsumerApplication {
                         }).get();
     }
 
-//    @Bean
-//    IntegrationFlow direct(ConsumerChannels channels) {
-//        return incomingMessageFlow(channels.directed(), "directed");
-//    }
+    @Bean
+    @Primary
+    IntegrationFlow direct(ConsumerChannels channels) {
+        return incomingMessageFlow(channels.directed(), "directed");
+    }
 
     @Bean
     IntegrationFlow broadcast(ConsumerChannels channels) {
